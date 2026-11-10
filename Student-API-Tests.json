@@ -1,0 +1,187 @@
+{
+  "info": {
+    "_postman_id": "6bb9a919-ca44-4f25-b6e9-5b7aac0d989e",
+    "name": "Students API Test",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "60085572",
+    "_collection_link": "https://go.postman.co/collection/60085572-6bb9a919-ca44-4f25-b6e9-5b7aac0d989e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET All Students",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "\r\npm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Success is true\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.success).to.eql(true);\r\n});\r\n\r\npm.test(\"Data is an array\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data).to.be.an(\"array\");\r\n});\r\n\r\npm.test(\"Total students is 3\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.total).to.eql(3);\r\n});\r\n\r\npm.test(\"Response time below 200ms\", function () {\r\n    pm.expect(pm.response.responseTime).to.be.below(200);\r\n});\r\n"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/students",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "students"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Student By ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Student ID is SV001\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data.id).to.eql(\"SV001\");\r\n});\r\n\r\npm.test(\"Student name is correct\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data.name).to.eql(\"Nguyen Van A\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/students/SV001",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "students",
+            "SV001"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST Add Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r\n    pm.response.to.have.status(201);\r\n});\r\n\r\npm.test(\"Success is true\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.success).to.eql(true);\r\n});\r\n\r\npm.test(\"Student ID is SV004\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data.id).to.eql(\"SV004\");\r\n});\r\n\r\npm.test(\"Student name is correct\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data.name).to.eql(\"Pham Thuong D\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"id\": \"SV004\",\r\n    \"name\": \"Pham Thuong D\",\r\n    \"age\": 22,\r\n    \"grade\": \"K21\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/students",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "students"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT Update Student",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Success is true\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.success).to.eql(true);\r\n});\r\n\r\npm.test(\"Student ID is SV002\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data.id).to.eql(\"SV002\");\r\n});\r\n\r\npm.test(\"Student name is updated\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data.name).to.eql(\"Tran Thi B Updated\");\r\n});\r\n\r\npm.test(\"Student age is updated\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.data.age).to.eql(22);\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"name\": \"Tran Thi B Updated\",\r\n    \"age\": 22,\r\n    \"grade\": \"K22\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/students/SV002",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "students",
+            "SV002"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Success is true\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.success).to.eql(true);\r\n});\r\n\r\npm.test(\"Success message is correct\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data.message).to.eql(\"Student deleted\");\r\n});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/students/SV004",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "students",
+            "SV004"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
